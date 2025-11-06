@@ -23,7 +23,11 @@ module FastlaneCore
       end
 
       @log.formatter = proc do |severity, datetime, progname, msg|
-        "#{format_string(datetime, severity)}#{msg}\n"
+        if github_actions_workflow_command?(msg)
+          "#{msg}\n"
+        else
+          "#{format_string(datetime, severity)}#{msg}\n"
+        end
       end
 
       @log
@@ -71,7 +75,9 @@ module FastlaneCore
     def command_output(message)
       actual = (encode_as_utf_8_if_possible(message).split("\r").last || "") # as clearing the line will remove the `>` and the time stamp
       actual.split("\n").each do |msg|
-        if FastlaneCore::Env.truthy?("FASTLANE_DISABLE_OUTPUT_FORMAT")
+        disable_format = FastlaneCore::Env.truthy?("FASTLANE_DISABLE_OUTPUT_FORMAT") || github_actions_workflow_command?(msg)
+
+        if disable_format
           log.info(msg)
         else
           prefix = msg.include?("▸") ? "" : "▸ "
@@ -172,6 +178,13 @@ module FastlaneCore
       return if interactive?
       important(message)
       crash!("Could not retrieve response as fastlane runs in non-interactive mode")
+    end
+
+    def github_actions_workflow_command?(line)
+      return false unless line
+      return false unless line.start_with?("::")
+
+      line.match?(/\A::[A-Za-z0-9_-]+(?:\s+[^:]*)?::/)
     end
   end
 end
