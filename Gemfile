@@ -13,11 +13,11 @@ gem "coveralls", "~> 0.8.13"
 gem "danger", "~> 8.0"
 # Plugin for Danger that reports JUnit test results.
 gem "danger-junit", "~> 1.0"
-# domain_name 0.6.x requires Ruby >= 2.7.0, while fastlane uses a
-# `required_ruby_version` of `>= 2.6`.
+# Keep the existing domain_name series.
 gem "domain_name", "< 0.6"
+# Excon 1.5 fixes redirect header leaks and supports the minimum Ruby 3.1.
+gem "excon", "~> 1.5.0"
 # A fake filesystem.
-# Version 1.9+ requires Ruby >=2.7, while fastlane uses a `required_ruby_version` of `>= 2.6`.
 gem "fakefs", "1.8"
 # for file uploads with Faraday
 gem "mime-types", ['>= 1.16', '< 4.0']
@@ -29,7 +29,6 @@ gem "openssl",
     "!= 3.2.1",
     "!= 3.3.0"
 # Fast XML parser and object marshaller.
-# Version 2.14.15+ requires Ruby >=2.7, while fastlane uses a `required_ruby_version` of `>= 2.6`.
 gem "ox", "2.14.14"
 # Provides an interactive debugging environment for Ruby.
 gem "pry"
@@ -39,9 +38,10 @@ gem "pry-byebug"
 gem "pry-rescue"
 # A plugin for pry that enables exploring the call stack.
 gem "pry-stack_explorer"
-# public_suffix >= 6.0 requires Ruby >= 3.0, while fastlane uses a
-# `required_ruby_version` of `>= 2.6`.
+# Keep the existing public_suffix series.
 gem "public_suffix", "< 6.0"
+# Keep mock servers on the patched Rack 3.1 line for Ruby 3.1 compatibility.
+gem "rack", ">= 3.1.22", "< 3.2"
 # A simple task automation tool.
 gem "rake"
 # A readline implementation in Ruby
@@ -58,7 +58,7 @@ gem "rubocop-performance"
 # A RuboCop extension focused on enforcing tools.
 gem "rubocop-require_tools"
 # Used to mock servers.
-gem "sinatra", [">= 2.2.3", "< 3.0"]
+gem "sinatra", [">= 4.2.0", "< 5.0"]
 # A library for stubbing and setting expectations on HTTP requests.
 gem "webmock", "~> 3.18"
 # Needed for running xcode-install related tests.
@@ -66,7 +66,7 @@ gem "xcode-install", ">= 2.6.7"
 # Used for xcov's parameters generation: https://github.com/fastlane/fastlane/pull/12416
 gem "xcov", "~> 1.4.1"
 # A documentation generation tool for Ruby.
-gem "yard", "~> 0.9.11"
+gem "yard", ">= 0.9.44", "< 0.10"
 
 gemspec(path: ".")
 

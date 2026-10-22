@@ -8,7 +8,7 @@ require:
   - ./rubocop/is_string_usage.rb
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.1
   NewCops: enable
   Include:
     - '**/*.rb'
@@ -25,6 +25,22 @@ AllCops:
     - '**/*.provisionprofile'
 
 Lint/ErbNewArguments:
+  Enabled: false
+
+# Preserve the existing source style when raising the supported Ruby version.
+Naming/BlockForwarding:
+  EnforcedStyle: explicit
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+
+Style/ArrayIntersect:
+  Enabled: false
+
+Style/HashExcept:
+  Enabled: false
+
+Lint/RedundantDirGlobSort:
   Enabled: false
 
 Style/SlicingWithRange:
